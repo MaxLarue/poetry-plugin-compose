@@ -1,0 +1,3 @@
+
+class ComposedCommand:
+    pass
