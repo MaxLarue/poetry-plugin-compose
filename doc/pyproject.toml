@@ -1,14 +1,12 @@
 [tool.poetry]
-name = "poetry-plugin-compose"
+name = "doc"
 version = "0.1.0"
 description = ""
 authors = ["Max <maximilienlarue@gmail.com>"]
 readme = "README.md"
-packages = [{include = "poetry_plugin_compose"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-mkdocs = "^1.4.2"
 
 
 [build-system]
