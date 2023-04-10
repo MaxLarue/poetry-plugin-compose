@@ -1,0 +1,5 @@
+- improve reporting (colored output)
+- other sub-commands
+- tests
+- documentation
+- publish
