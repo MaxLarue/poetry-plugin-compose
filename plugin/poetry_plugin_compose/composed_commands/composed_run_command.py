@@ -37,21 +37,27 @@ class ComposedRunCommand(ComposedCommand):
         for package in packages:
             if options.ignore_missing:
                 if not sub_package_has_dependency(package, options.ignore_missing):
-                    self._write_line(
-                        "package "
-                        + package
-                        + " missing dependency "
-                        + options.ignore_missing
-                        + " skipping"
-                    )
+                    self.output_skipping_package(options, package)
                     continue
-            self._write_empty()
-            self._write_line(
-                "running command " + " ".join(full_command) + " in " + package
-            )
-            self._write_empty()
-            return_code += run_sub_command_sync(full_command, package)
-            self._write_empty()
-            self._write_line("success" if return_code == 0 else "failure")
-            self._write_empty()
+            return_code += self.run_sub_command_in_package(full_command, package)
+        return return_code
+
+    def output_skipping_package(self, options, package):
+        self._write_line(
+            "package "
+            + package
+            + " missing dependency "
+            + options.ignore_missing
+            + " skipping"
+        )
+
+    def run_sub_command_in_package(self, full_command, package):
+        return_code = 1
+        self._write_empty()
+        self._write_line("running command " + " ".join(full_command) + " in " + package)
+        self._write_empty()
+        return_code = run_sub_command_sync(full_command, package)
+        self._write_empty()
+        self._write_line("success" if return_code == 0 else "failure")
+        self._write_empty()
         return return_code
