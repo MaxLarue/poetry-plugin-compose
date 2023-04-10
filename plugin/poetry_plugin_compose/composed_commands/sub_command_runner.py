@@ -8,11 +8,11 @@ def run_sub_command_sync(command: List[str], root: str):
 
 
 def run_sub_command_sync_silent(command: List[str], root: str):
-    completed = subprocess.call(
+    completed = subprocess.run(
         " ".join(command),
         cwd=root,
         shell=True,
-        stderr=subprocess.DEVNULL,
-        stdout=subprocess.DEVNULL,
+        stderr=subprocess.PIPE,
+        stdout=subprocess.PIPE,
     )
-    return completed
+    return completed.returncode, completed.stdout, completed.stderr
