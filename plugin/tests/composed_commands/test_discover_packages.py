@@ -11,7 +11,6 @@ from poetry_plugin_compose.composed_commands.discover_packages import (
 @pytest.fixture
 def discovered_root_txt_packages():
     FIXTURE_PATH = os.path.join(os.getcwd(), "tests", "fixtures", "not-a-project")
-    print("fixture path", FIXTURE_PATH)
     return discover_packages_matching(
         FIXTURE_PATH,
         lambda directory: is_directory_containing_file(directory, "root.txt"),

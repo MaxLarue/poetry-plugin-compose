@@ -52,7 +52,6 @@ class ComposedRunCommand(ComposedCommand):
         )
 
     def run_sub_command_in_package(self, full_command, package):
-        return_code = 1
         self._write_empty()
         self._write_line("running command " + " ".join(full_command) + " in " + package)
         self._write_empty()
