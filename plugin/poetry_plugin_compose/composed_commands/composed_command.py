@@ -13,7 +13,7 @@ class ComposedCommand:
     def match(self, args: List[str]):
         return args and args[0] == self.name
 
-    def handle(self, args: List[str]):
+    def handle(self, args: List[str], options: List[str]):
         pass
 
     def _write_empty(self):
