@@ -3,6 +3,7 @@ from typing import List, Optional
 
 from cleo.commands.command import Command
 from cleo.io.inputs.argument import Argument
+from cleo.io.io import IO
 
 from poetry_plugin_compose.composed_commands.composed_command import ComposedCommand
 from poetry_plugin_compose.composed_commands.composed_run_command import (
@@ -17,6 +18,7 @@ class ComposeCommand(Command):
     sub_commands: List[ComposedCommand] = []
     default_sub_command_class = ComposedRunCommand
     default_sub_command: Optional[ComposedCommand] = None
+    _io: IO
 
     def __init__(self):
         super().__init__()
@@ -34,8 +36,11 @@ class ComposeCommand(Command):
         return self.default_sub_command.handle(args)
 
     def _build_sub_commands(self):
-        self.sub_commands = [command(self.io) for command in self.sub_command_classes]
-        self.default_sub_command = self.default_sub_command_class(self.io)
+        self.sub_commands = [command(self._io) for command in self.sub_command_classes]
+        self.default_sub_command = self.default_sub_command_class(self._io)
+
+    def set_io(self, io: IO):
+        self._io = io
 
 
 def compose_command_factory():

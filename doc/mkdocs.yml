@@ -1,1 +1,4 @@
 site_name: Poetry compose
+nav:
+  - Home: index.md
+  - Commands: commands.md
