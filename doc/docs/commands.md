@@ -16,4 +16,11 @@ poetry compose run pytest
 
 #### options
 
-- `-i,--ignore-missing`: Do not run command if 
+###### ignore-missing
+`-i,--ignore-missing`
+Do not run command if a package is not installed in the sub package
+
+eg: run pytest in every package where pytest is installed
+```bash
+poetry compose -i pytest -- pytest
+```
