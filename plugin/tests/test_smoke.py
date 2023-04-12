@@ -22,3 +22,7 @@ def test_smoke_run_command():
 
 def test_smoke_run_ignore_command():
     assert run_poetry(["compose", "-i", "mkdocs", "--", "black", "."]) == 0
+
+
+def test_smoke_run_contains():
+    assert run_poetry(["compose", "-c", "tests", "--", "black", "."]) == 0

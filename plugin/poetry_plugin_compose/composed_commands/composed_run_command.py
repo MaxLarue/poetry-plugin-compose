@@ -11,6 +11,9 @@ from poetry_plugin_compose.composed_commands.discover_packages import discover_p
 from poetry_plugin_compose.composed_commands.sub_command_runner import (
     run_sub_command_sync,
 )
+from poetry_plugin_compose.composed_commands.sub_package_contains import (
+    sub_package_contains,
+)
 from poetry_plugin_compose.composed_commands.sub_package_has_dependency import (
     sub_package_has_dependency,
 )
@@ -26,6 +29,7 @@ class ComposedRunCommand(ComposedCommand):
             description="Run multiple commands in parallel"
         )
         self.parser.add_argument("-i", "--ignore-missing", action="store")
+        self.parser.add_argument("-c", "--contains", action="store")
 
     def handle(self, args: List[str]):
         root_command, sub_command = split_root_command_and_sub_command(args)
@@ -35,19 +39,30 @@ class ComposedRunCommand(ComposedCommand):
         return_code = 0
         full_command = ["poetry", "run", *normal_args]
         for package in packages:
-            if options.ignore_missing:
-                if not sub_package_has_dependency(package, options.ignore_missing):
-                    self.output_skipping_package(options, package)
-                    continue
+            if self.__ignore_missing(package, options):
+                self.output_skipping_missing_package(options, package)
+                continue
+            if self.__ignore_not_contains(package, options):
+                self.output_skipping_missing_file(options, package)
+                continue
             return_code += self.run_sub_command_in_package(full_command, package)
         return return_code
 
-    def output_skipping_package(self, options, package):
+    def output_skipping_missing_package(self, options, package):
         self._write_line(
             "package "
             + package
             + " missing dependency "
             + options.ignore_missing
+            + " skipping"
+        )
+
+    def output_skipping_missing_file(self, options, package):
+        self._write_line(
+            "package "
+            + package
+            + " does not contain file "
+            + options.contains
             + " skipping"
         )
 
@@ -60,3 +75,11 @@ class ComposedRunCommand(ComposedCommand):
         self._write_line("success" if return_code == 0 else "failure")
         self._write_empty()
         return return_code
+
+    def __ignore_missing(self, package, options):
+        return options.ignore_missing and not sub_package_has_dependency(
+            package, options.ignore_missing
+        )
+
+    def __ignore_not_contains(self, package, options):
+        return options.contains and not sub_package_contains(package, options.contains)
