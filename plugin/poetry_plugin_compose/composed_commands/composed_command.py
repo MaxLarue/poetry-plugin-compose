@@ -27,20 +27,21 @@ class ComposedCommand:
     def match(self, args: List[str]):
         return args and args[0] == self.name
 
+    def split_args(self, args: List[str]):
+        return split_root_command_and_sub_command(args)
+
     def handle(self, args: List[str]):
-        root_command, sub_command = split_root_command_and_sub_command(args)
-        normal_args = sub_command[1:] if sub_command[0] == self.name else sub_command
+        root_command, sub_command = self.split_args(args)
         options = self.parser.parse_args(root_command)
         filters = self._get_package_filters(options)
         packages = discover_packages(".")
         return_code = 0
-        full_command = ["poetry", "run", *normal_args]
         for package in packages:
             if self.filter_package(package, filters):
-                return_code += self.run(full_command, package)
+                return_code += self.run(sub_command, package)
         return return_code
 
-    def run(self, sub_command, package):
+    def run(self, args, package):
         raise NotImplementedError()
 
     def filter_package(self, package, filters):

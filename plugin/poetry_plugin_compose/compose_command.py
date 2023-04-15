@@ -6,6 +6,7 @@ from cleo.io.inputs.argument import Argument
 from cleo.io.io import IO
 
 from poetry_plugin_compose.composed_commands.composed_command import ComposedCommand
+from poetry_plugin_compose.composed_commands.composed_install_command import ComposedInstallCommand
 from poetry_plugin_compose.composed_commands.composed_run_command import (
     ComposedRunCommand,
 )
@@ -14,7 +15,7 @@ from poetry_plugin_compose.composed_commands.composed_run_command import (
 class ComposeCommand(Command):
     name = "compose"
     arguments = [Argument(name="sub command", is_list=True)]
-    sub_command_classes = [ComposedRunCommand]
+    sub_command_classes = [ComposedInstallCommand, ComposedRunCommand]
     sub_commands: List[ComposedCommand] = []
     default_sub_command_class = ComposedRunCommand
     default_sub_command: Optional[ComposedCommand] = None
@@ -28,12 +29,12 @@ class ComposeCommand(Command):
 
     def handle(self) -> int:
         self._build_sub_commands()
-        args = sys.argv[2:]
+        subcommand_args = sys.argv[2:]
         for command in self.sub_commands:
-            if command.match(args):
-                return command.handle(args)
+            if command.match(subcommand_args):
+                return command.handle(subcommand_args)
 
-        return self.default_sub_command.handle(args)
+        return self.default_sub_command.handle(subcommand_args)
 
     def _build_sub_commands(self):
         self.sub_commands = [command(self._io) for command in self.sub_command_classes]
