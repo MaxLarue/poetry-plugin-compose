@@ -1,6 +1,6 @@
 import pytest
 
-from poetry_plugin_compose.toposort.graph import Graph
+from poetry_plugin_compose.toposort.graph import Graph, CircularGraphException
 
 
 @pytest.fixture
@@ -27,12 +27,12 @@ def simple_graph():
 @pytest.fixture
 def circular_graph():
     """
-        Graph structure
-        A <- B <- D
-        |         ^
-        v         |
-        C --------|
-        """
+    Graph structure
+    A <- B <- D
+    |         ^
+    v         |
+    C --------|
+    """
     graph = Graph(lambda it: it)
     graph.add_node("A")
     graph.add_node("B")
@@ -48,15 +48,15 @@ def circular_graph():
 @pytest.fixture
 def complex_graph():
     """
-            Graph structure
-            A -> B -> C -> D -> E -> F
-                 |         ^    ^    |
-                 V         |    |    |
-                 G -> H -> I    |    |
-                      |         |    |
-                      V         |    V
-                      J ------> K -> L
-            """
+    Graph structure
+    A -> B -> C -> D -> E -> F
+         |         ^    ^    |
+         V         |    |    |
+         G -> H -> I    |    |
+              |         |    |
+              V         |    V
+              J ------> K -> L
+    """
     graph = Graph(lambda it: it)
     graph.add_nodes(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"])
     graph.add_edge("A", "B")
@@ -78,31 +78,31 @@ def complex_graph():
 def test_get_nodes_depending_on(simple_graph):
     depending_on_d = simple_graph.nodes_depending_on("D")
     values = [node.data for node in depending_on_d]
-    assert values == ['B', 'C']
+    assert values == ["B", "C"]
 
 
 def test_get_node_dependencies(simple_graph):
     dependencies = simple_graph.node_dependencies("B")
     values = [node.data for node in dependencies]
-    assert sorted(values) == ['C', 'D']
+    assert sorted(values) == ["C", "D"]
 
 
 def test_get_node_dependencies_from_root(simple_graph):
     dependencies = simple_graph.node_dependencies("A")
     values = [node.data for node in dependencies]
-    assert sorted(values) == ['B']
+    assert sorted(values) == ["B"]
 
 
 def test_leafs(simple_graph):
     leafs = simple_graph.leafs()
     values = [node.data for node in leafs]
-    assert sorted(values) == ['D']
+    assert sorted(values) == ["D"]
 
 
 def test_roots(simple_graph):
     roots = simple_graph.roots()
     values = [node.data for node in roots]
-    assert sorted(values) == ['A']
+    assert sorted(values) == ["A"]
 
 
 def test_detect_cycles_no_cycles(simple_graph):
@@ -116,16 +116,20 @@ def test_detect_cycles_has_cycles(circular_graph):
 
 
 def test_topo_sort_empty_graph():
-    graph = Graph(lambda it : it)
+    graph = Graph(lambda it: it)
     assert graph.toposort() == []
 
 
 def test_topo_sort_simple_graph(simple_graph):
     values = [node.data for node in simple_graph.toposort()]
-    assert values == ['A', 'B', 'D', 'C']
+    assert values == ["A", "B", "D", "C"]
 
 
 def test_topo_sort_complex_graph(complex_graph):
     values = [node.data for node in complex_graph.toposort()]
-    assert values == ['A', 'B', 'G', 'C', 'H', 'D', 'I', 'J', 'K', 'E', 'L', 'F']
+    assert values == ["A", "B", "G", "C", "H", "D", "I", "J", "K", "E", "L", "F"]
 
+
+def test_topo_sort_circular_graph_raises(circular_graph):
+    with pytest.raises(CircularGraphException) as e:
+        circular_graph.toposort()

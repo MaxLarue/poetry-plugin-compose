@@ -1,5 +1,3 @@
-- error when calling just poetry compose without args
-- help
 - features
   - get dependency order
   - link two packages

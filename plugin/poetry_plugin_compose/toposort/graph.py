@@ -22,6 +22,13 @@ class Edge:
         self.to_node = to_node
 
 
+class CircularGraphException(Exception):
+    def __init__(self, cycles):
+        msg = "Cycles detected in graph: " + ",".join([str(cycle) for cycle in cycles])
+        super(CircularGraphException, self).__init__(msg)
+        self.cycles = cycles
+
+
 class Graph:
     def __init__(self, key_extractor: Callable[[T], str]):
         self.nodes: Dict[str, Node] = {}
@@ -77,6 +84,9 @@ class Graph:
         return cycles
 
     def toposort(self):
+        cycles = self.detect_cycles()
+        if cycles:
+            raise CircularGraphException(cycles)
         dependencies = self.roots()
         queue = [*dependencies]
         while queue:
