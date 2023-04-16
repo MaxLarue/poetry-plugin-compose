@@ -6,7 +6,7 @@ from cleo.io.io import IO
 from poetry_plugin_compose.composed_commands.composed_command_utils import (
     split_compose_command_and_sub_command,
 )
-from poetry_plugin_compose.composed_commands.discover_packages import discover_packages
+from poetry_plugin_compose.packages.discover_packages import discover_packages
 from poetry_plugin_compose.composed_commands.package_filter import (
     PackageContainsFileFilter,
     PackageHasDependencyFilter,

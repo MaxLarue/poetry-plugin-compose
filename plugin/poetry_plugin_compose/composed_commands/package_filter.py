@@ -1,7 +1,7 @@
-from poetry_plugin_compose.composed_commands.sub_package_contains import (
+from poetry_plugin_compose.packages.sub_package_contains import (
     sub_package_contains,
 )
-from poetry_plugin_compose.composed_commands.sub_package_has_dependency import (
+from poetry_plugin_compose.packages.sub_package_has_dependency import (
     sub_package_has_dependency,
 )
 

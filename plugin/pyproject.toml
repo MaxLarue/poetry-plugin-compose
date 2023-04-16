@@ -9,6 +9,7 @@ packages = [{include = "poetry_plugin_compose"}]
 [tool.poetry.dependencies]
 python = "^3.9"
 poetry = "^1.4.2"
+tomli = "^2.0.1"
 
 [tool.poetry.plugins."poetry.application.plugin"]
 poetry-plugin-compose = "poetry_plugin_compose.plugin:MultiPackagePlugin"
