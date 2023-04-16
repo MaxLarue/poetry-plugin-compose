@@ -15,8 +15,8 @@ poetry-plugin-compose = "poetry_plugin_compose.plugin:MultiPackagePlugin"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.3.0"
-black = "^23.3.0"
 flake8 = "^6.0.0"
+black = "^23.3.0"
 
 [build-system]
 requires = ["poetry-core"]

@@ -17,15 +17,20 @@ class ComposedCommand:
     name: str
     io: IO
     parser: argparse.ArgumentParser
+    description: str
 
     def __init__(self, io: IO, description: str):
         self.io = io
-        self.parser = argparse.ArgumentParser(description=description)
-        self.parser.add_argument("-i", "--ignore-missing", action="store")
-        self.parser.add_argument("-c", "--contains", action="store")
+        self.description = description
+        self.parser = argparse.ArgumentParser(prog='poetry compose ' + self.name, description=description)
+        self.parser.add_argument("-i", "--ignore-missing", action="store", help="Only run in packages that have this dependency")
+        self.parser.add_argument("-c", "--contains", action="store", help="Only run in packages that include this file")
 
     def match(self, args: List[str]):
         return args and args[0] == self.name
+
+    def print_help(self):
+        self.parser.print_help()
 
     def split_args(self, args: List[str]):
         return split_compose_command_and_sub_command(args)

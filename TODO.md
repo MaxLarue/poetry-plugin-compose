@@ -1,14 +1,9 @@
-- other sub-commands
-  - install
-  - add
-  - build
-  - check
-  - lock
-  - publish
-  - remove
-  - update
-  - show
 - error when calling just poetry compose without args
-- tests
+- help
+- features
+  - get dependency order
+  - link two packages
+  - scaffold new sub-package
+  - follow dependency order when running commands
 - documentation
 - publish
