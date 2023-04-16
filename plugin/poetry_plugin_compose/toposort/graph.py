@@ -1,5 +1,5 @@
 from collections import defaultdict
-from typing import Any, Callable, List, Dict, TypeVar
+from typing import Callable, List, Dict, TypeVar
 
 
 T = TypeVar("T")
@@ -8,6 +8,12 @@ T = TypeVar("T")
 class Node:
     def __init__(self, data: T):
         self.data = data
+
+    def __str__(self):
+        return f"Node({str(self.data)})"
+
+    def __repr__(self):
+        return str(self)
 
 
 class Edge:
@@ -26,6 +32,10 @@ class Graph:
     def add_node(self, data: T):
         self.nodes[self.key_extractor(data)] = Node(data)
 
+    def add_nodes(self, datas: List[T]):
+        for data in datas:
+            self.add_node(data)
+
     def add_edge(self, from_data: T, to_data: T):
         edge = Edge(
             self.nodes[self.key_extractor(from_data)],
@@ -39,3 +49,41 @@ class Graph:
 
     def node_dependencies(self, data: T):
         return [edge.to_node for edge in self.edges_from[self.key_extractor(data)]]
+
+    def leafs(self):
+        result = []
+        for node in self.nodes.values():
+            if not self.edges_from[self.key_extractor(node.data)]:
+                result.append(node)
+        return result
+
+    def roots(self):
+        result = []
+        for node in self.nodes.values():
+            if not self.edges_to[self.key_extractor(node.data)]:
+                result.append(node)
+        return result
+
+    def detect_cycles(self):
+        stack = [([], node) for node in self.nodes.values()]
+        cycles = []
+        while stack:
+            path, node = stack.pop()
+            if node in path:
+                cycles.append(path)
+                continue
+            for dependencies in self.node_dependencies(node.data):
+                stack.append(([*path, node], dependencies))
+        return cycles
+
+    def toposort(self):
+        dependencies = self.roots()
+        queue = [*dependencies]
+        while queue:
+            current = queue.pop(0)
+            if current not in dependencies:
+                dependencies.append(current)
+            for node in self.node_dependencies(current.data):
+                if node not in dependencies:
+                    queue.append(node)
+        return dependencies
