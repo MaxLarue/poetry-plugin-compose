@@ -63,7 +63,7 @@ class ComposeCommand(Command):
         subcommand_args = sys.argv[2:]
         for command in self.sub_commands:
             if command.match(subcommand_args):
-                if len(subcommand_args) > 1 and subcommand_args[1] in ['--help', '-h']:
+                if len(subcommand_args) > 1 and subcommand_args[1] in ["--help", "-h"]:
                     command.print_help()
                     return 0
                 else:
@@ -84,8 +84,9 @@ class ComposeCommand(Command):
         )
         self._io.write_line("Available commands:")
         for command in self.sub_commands:
-            self._io.write_line("    <comment>" + command.name + "</comment>: " + command.description)
-
+            self._io.write_line(
+                "    <comment>" + command.name + "</comment>: " + command.description
+            )
 
 
 def compose_command_factory():

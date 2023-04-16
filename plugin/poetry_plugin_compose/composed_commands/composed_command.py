@@ -22,9 +22,21 @@ class ComposedCommand:
     def __init__(self, io: IO, description: str):
         self.io = io
         self.description = description
-        self.parser = argparse.ArgumentParser(prog='poetry compose ' + self.name, description=description)
-        self.parser.add_argument("-i", "--ignore-missing", action="store", help="Only run in packages that have this dependency")
-        self.parser.add_argument("-c", "--contains", action="store", help="Only run in packages that include this file")
+        self.parser = argparse.ArgumentParser(
+            prog="poetry compose " + self.name, description=description
+        )
+        self.parser.add_argument(
+            "-i",
+            "--ignore-missing",
+            action="store",
+            help="Only run in packages that have this dependency",
+        )
+        self.parser.add_argument(
+            "-c",
+            "--contains",
+            action="store",
+            help="Only run in packages that include this file",
+        )
 
     def match(self, args: List[str]):
         return args and args[0] == self.name
