@@ -6,7 +6,9 @@ from cleo.io.inputs.argument import Argument
 from cleo.io.io import IO
 
 from poetry_plugin_compose.composed_commands.composed_command import ComposedCommand
-from poetry_plugin_compose.composed_commands.composed_install_command import ComposedInstallCommand
+from poetry_plugin_compose.composed_commands.composed_install_command import (
+    ComposedInstallCommand,
+)
 from poetry_plugin_compose.composed_commands.composed_run_command import (
     ComposedRunCommand,
 )

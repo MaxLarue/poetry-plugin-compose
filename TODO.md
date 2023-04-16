@@ -8,6 +8,7 @@
   - remove
   - update
   - show
+- error when calling just poetry compose without args
 - tests
 - documentation
 - publish

@@ -4,7 +4,7 @@ from typing import List
 from cleo.io.io import IO
 
 from poetry_plugin_compose.composed_commands.composed_command_utils import (
-    split_root_command_and_sub_command,
+    split_compose_command_and_sub_command,
 )
 from poetry_plugin_compose.composed_commands.discover_packages import discover_packages
 from poetry_plugin_compose.composed_commands.package_filter import (
@@ -28,11 +28,11 @@ class ComposedCommand:
         return args and args[0] == self.name
 
     def split_args(self, args: List[str]):
-        return split_root_command_and_sub_command(args)
+        return split_compose_command_and_sub_command(args)
 
     def handle(self, args: List[str]):
         root_command, sub_command = self.split_args(args)
-        options = self.parser.parse_args(root_command)
+        options = self.parser.parse_args(root_command[1:])
         filters = self._get_package_filters(options)
         packages = discover_packages(".")
         return_code = 0
