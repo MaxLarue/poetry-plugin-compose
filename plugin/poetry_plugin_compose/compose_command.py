@@ -33,7 +33,9 @@ from poetry_plugin_compose.composed_commands.composed_run_command import (
 from poetry_plugin_compose.composed_commands.composed_update_command import (
     ComposedUpdateCommand,
 )
-from poetry_plugin_compose.composed_commands.dependency_order_command import DependencyOrderCommand
+from poetry_plugin_compose.composed_commands.dependency_order_command import (
+    DependencyOrderCommand,
+)
 
 
 class ComposeCommand(Command):

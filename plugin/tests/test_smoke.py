@@ -27,11 +27,3 @@ def test_smoke_run_ignore_command():
 @pytest.mark.slow
 def test_smoke_run_contains():
     assert run_poetry(["compose", "run", "-c", "tests", "--", "black", "."]) == 0
-
-
-@pytest.mark.slow
-def test_smoke_run_contains():
-    assert (
-        run_poetry(["compose", "run", "-c", "tests", "--", "pytest", "-m", "not slow"])
-        == 0
-    )

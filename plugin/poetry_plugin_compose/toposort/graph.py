@@ -43,6 +43,12 @@ class Graph:
         for data in datas:
             self.add_node(data)
 
+    def has_node(self, data: T):
+        for node in self.nodes:
+            if self.key_extractor(node) == data:
+                return True
+        return False
+
     def add_edge(self, from_data: T, to_data: T):
         edge = Edge(
             self.nodes[self.key_extractor(from_data)],
@@ -87,13 +93,19 @@ class Graph:
         cycles = self.detect_cycles()
         if cycles:
             raise CircularGraphException(cycles)
-        dependencies = self.roots()
-        queue = [*dependencies]
-        while queue:
-            current = queue.pop(0)
-            if current not in dependencies:
-                dependencies.append(current)
-            for node in self.node_dependencies(current.data):
-                if node not in dependencies:
-                    queue.append(node)
-        return dependencies
+        in_degrees = {}
+        no_incoming_edge = []
+        for node_data in self.nodes.keys():
+            in_degrees[node_data] = len(self.node_dependencies(node_data))
+            if in_degrees[node_data] == 0:
+                no_incoming_edge.append(node_data)
+        order = []
+        while no_incoming_edge:
+            node_data = no_incoming_edge.pop()
+            order.append(node_data)
+            for depending_on in self.nodes_depending_on(node_data):
+                in_degrees[depending_on.data] -= 1
+                if in_degrees[depending_on.data] == 0:
+                    no_incoming_edge.append(depending_on.data)
+                    in_degrees.pop(depending_on.data)
+        return order

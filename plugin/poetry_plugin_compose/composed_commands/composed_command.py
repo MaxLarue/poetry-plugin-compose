@@ -6,6 +6,7 @@ from cleo.io.io import IO
 from poetry_plugin_compose.composed_commands.composed_command_utils import (
     split_compose_command_and_sub_command,
 )
+from poetry_plugin_compose.packages.build_dependency_graph import build_dependency_graph
 from poetry_plugin_compose.packages.discover_packages import discover_packages
 from poetry_plugin_compose.composed_commands.package_filter import (
     PackageContainsFileFilter,
@@ -51,11 +52,12 @@ class ComposedCommand:
         root_command, sub_command = self.split_args(args)
         options = self.parser.parse_args(root_command[1:])
         filters = self._get_package_filters(options)
-        packages = discover_packages(".")
+        package_order, package_map = build_dependency_graph()
         return_code = 0
-        for package in packages:
-            if self.filter_package(package, filters):
-                return_code += self.run(sub_command, package)
+        for package_name in package_order:
+            package_dir = package_map[package_name].dir
+            if self.filter_package(package_dir, filters):
+                return_code += self.run(sub_command, package_dir)
         return return_code
 
     def run(self, args, package):

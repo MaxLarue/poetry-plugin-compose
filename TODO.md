@@ -1,7 +1,5 @@
 - features
-  - get dependency order
   - link two packages
   - scaffold new sub-package
-  - follow dependency order when running commands
 - documentation
 - publish

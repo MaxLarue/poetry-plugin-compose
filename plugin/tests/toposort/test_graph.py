@@ -68,11 +68,19 @@ def complex_graph():
     graph.add_edge("H", "J")
     graph.add_edge("J", "K")
     graph.add_edge("I", "D")
+    graph.add_edge("D", "E")
     graph.add_edge("K", "E")
     graph.add_edge("E", "F")
     graph.add_edge("K", "L")
     graph.add_edge("F", "L")
     return graph
+
+
+def test_toposort_add_node():
+    graph = Graph(lambda it: it)
+    graph.add_node("T")
+    assert graph.has_node("T")
+    assert not graph.has_node("V")
 
 
 def test_get_nodes_depending_on(simple_graph):
@@ -121,13 +129,25 @@ def test_topo_sort_empty_graph():
 
 
 def test_topo_sort_simple_graph(simple_graph):
-    values = [node.data for node in simple_graph.toposort()]
-    assert values == ["A", "B", "D", "C"]
+    assert simple_graph.toposort() == ["D", "C", "B", "A"]
 
 
 def test_topo_sort_complex_graph(complex_graph):
-    values = [node.data for node in complex_graph.toposort()]
-    assert values == ["A", "B", "G", "C", "H", "D", "I", "J", "K", "E", "L", "F"]
+    print(complex_graph.toposort())
+    assert complex_graph.toposort() == [
+        "L",
+        "F",
+        "E",
+        "K",
+        "J",
+        "D",
+        "I",
+        "H",
+        "G",
+        "C",
+        "B",
+        "A",
+    ]
 
 
 def test_topo_sort_circular_graph_raises(circular_graph):
