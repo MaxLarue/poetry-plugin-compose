@@ -1,301 +1,305 @@
 # Commands
-
-
-## Run
-
-Runs a poetry (run) command in every sub-directory containing a `pyproject.toml` file
-```bash
-poetry compose run pytest
-```
-
-#### options
-
-##### ignore-missing
-`-i,--ignore-missing`
-Do not run command if a package is not installed in the sub package
-
-eg: run pytest in every package where pytest is installed
-```bash
-poetry compose -i pytest -- pytest
-```
-
-##### contains
-`-c,--contains`
-Only runs command if sub-package contains a specific file
-
-eg: run pytest in every package that has `entry_point.py` file
-```bash
-poetry compose -c entry_point.py -- pytest
-```
-
 ## install
-
-Runs poetry install in every subdirectory containing a `pyproject.toml` file
+> Run install in multiple sub-packages
 ```bash
-poetry compose install -- --no-dev
+usage: poetry compose install [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
 ```
-every argument past the separator is passed to the install command
-
-run the same command in every sub-package with a filter
-
 ```bash
-poetry compose install -c entry_point.py -- --no-dev
+usage: poetry compose install [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Run install in multiple sub-packages
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
 ```
-
-In order to differentiate between compose's own arguments and 
-the arguments passed to the sub(composed command)
-you might have to include the separator `--` even
-if you don't pass extra arguments to the sub command
-
-#### options
-
-##### ignore-missing
-`-i,--ignore-missing`
-Do not run command if a package is not installed in the sub package
-
-eg: install only if boto3 is installed
+#### Examples:
+run poetry install in every sub-package
 ```bash
-poetry compose install -i boto3 --
+poetry compose install
 ```
-
-##### contains
-`-c,--contains`
-Only runs install if sub-package contains a specific file
-
-eg: install in every package that has `entry_point.py` file
+run poetry install in the integration_test package
 ```bash
-poetry compose install -c entry_point.py
+poetry compose install -d integration_test --
 ```
-
 ## add
+> Add a dependency to every sub-packages
+```bash
+usage: poetry compose add [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
 
-Add a dependency in every subdirectory containing a `pyproject.toml` file
+```
+```bash
+usage: poetry compose add [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Add a dependency to every sub-packages
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
+```
+#### Examples:
+add flake8 to every sub-packages
 ```bash
 poetry compose add flake8
 ```
-
-run the same command in every sub-package with a filter
-
+add flake8 to every subpackage where black is installed
 ```bash
-poetry compose add -i pytest -- flake8
+poetry compose install -i black -- flake8
 ```
-
-#### options
-
-##### ignore-missing
-`-i,--ignore-missing`
-Do not run command if a package is not installed in the sub package
-
-eg: add only if boto3 is installed
+add flake8 as a dev dependency to every subpackage where black is installed
 ```bash
-poetry compose add -i boto3 --
+poetry compose install -i black -- flake8 --group-dev
 ```
-
-##### contains
-`-c,--contains`
-Only runs add if sub-package contains a specific file
-
-eg: add in every package that has `entry_point.py` file
-```bash
-poetry compose add -c entry_point.py
-```
-
 ## build
+> Build sub packages
+```bash
+usage: poetry compose build [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
 
-Runs poetry build in every subdirectory containing a `pyproject.toml` file
+```
+```bash
+usage: poetry compose build [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Build sub packages
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
+```
+#### Examples:
+run poetry build in every sub-package
 ```bash
 poetry compose build
 ```
-every argument past the separator is passed to the install command
-
-run the same command in every sub-package with a filter
-
+run poetry build in the integration_test package
 ```bash
-poetry compose build -c entry_point.py --
+poetry compose build -d integration_test --
 ```
-
-when passing arguments to build
-```bash
-poetry compose build -i pytest -- --no-cache
-```
-
-In order to differentiate between compose's own arguments and 
-the arguments passed to the sub(composed command)
-you might have to include the separator `--` even
-if you don't pass extra arguments to the sub command
-
-#### options
-
-##### ignore-missing
-`-i,--ignore-missing`
-Do not run command if a package is not installed in the sub package
-
-eg: build only if boto3 is installed
-```bash
-poetry compose build -i boto3 --
-```
-
-##### contains
-`-c,--contains`
-Only runs build if sub-package contains a specific file
-
-eg: build in every package that has `entry_point.py` file
-```bash
-poetry compose build -c entry_point.py
-```
-
-
 ## check
+> Run poetry check in sub-packages
+```bash
+usage: poetry compose check [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
 
-Runs poetry check in every subdirectory containing a `pyproject.toml` file
+```
+```bash
+usage: poetry compose check [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Run poetry check in sub-packages
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
+```
+#### Examples:
+run poetry check in every sub-package
 ```bash
 poetry compose check
 ```
-every argument past the separator is passed to the install command
-
-run the same command in every sub-package with a filter
-
+run poetry check in the integration_test package
 ```bash
-poetry compose check -c entry_point.py --
+poetry compose check -d integration_test --
 ```
-
-when passing arguments to check
-```bash
-poetry compose check -i pytest -- --quiet
-```
-
-In order to differentiate between compose's own arguments and 
-the arguments passed to the sub(composed command)
-you might have to include the separator `--` even
-if you don't pass extra arguments to the sub command
-
-#### options
-
-##### ignore-missing
-`-i,--ignore-missing`
-Do not run command if a package is not installed in the sub package
-
-eg: install only if boto3 is installed
-```bash
-poetry compose check -i boto3 --
-```
-
-##### contains
-`-c,--contains`
-Only runs check if sub-package contains a specific file
-
-eg: check in every package that has `entry_point.py` file
-```bash
-poetry compose check -c entry_point.py
-```
-
-
 ## lock
+> Lock sub packages
+```bash
+usage: poetry compose lock [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
 
-Runs poetry lock in every subdirectory containing a `pyproject.toml` file
+```
+```bash
+usage: poetry compose lock [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Lock sub packages
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
+```
+#### Examples:
+run poetry lock in every sub-package
 ```bash
 poetry compose lock
 ```
-every argument past the separator is passed to the install command
-
-run the same command in every sub-package with a filter
-
+run poetry lock in the integration_test package
 ```bash
-poetry compose lock -c entry_point.py --
+poetry compose lock -d integration_test --
 ```
-
-when passing arguments to lock
+## publish
+> Publish sub packages
 ```bash
-poetry compose lock -i pytest -- --check
+usage: poetry compose publish [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
 ```
-
-In order to differentiate between compose's own arguments and 
-the arguments passed to the sub(composed command)
-you might have to include the separator `--` even
-if you don't pass extra arguments to the sub command
-
-#### options
-
-##### ignore-missing
-`-i,--ignore-missing`
-Do not run command if a package is not installed in the sub package
-
-eg: install only if boto3 is installed
 ```bash
-poetry compose lock -i boto3 --
+usage: poetry compose publish [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Publish sub packages
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
 ```
-
-##### contains
-`-c,--contains`
-Only runs lock if sub-package contains a specific file
-
-eg: lock in every package that has `entry_point.py` file
+#### Examples:
+run poetry publish in every sub-package
 ```bash
-poetry compose lock -c entry_point.py
+poetry compose publish
 ```
-
+run poetry publish in the integration_test package
+```bash
+poetry compose publish -d integration_test --
+```
 ## remove
+> Removes a dependency from every sub-packages
+```bash
+usage: poetry compose remove [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
 
-Removes a dependency in every subdirectory containing a `pyproject.toml` file
+```
+```bash
+usage: poetry compose remove [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Removes a dependency from every sub-packages
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
+```
+#### Examples:
+remove flake8 from every sub-packages
 ```bash
 poetry compose remove flake8
 ```
-
-run the same command in every sub-package with a filter
-
+remove flake8 from every subpackage where black is installed
 ```bash
-poetry compose remove -i pytest -- flake8
+poetry compose install -i black -- flake8
 ```
-
-#### options
-
-##### ignore-missing
-`-i,--ignore-missing`
-Do not run command if a package is not installed in the sub package
-
-eg: remove only if boto3 is installed
+remove flake8 as a dev dependency from every subpackage where black is installed
 ```bash
-poetry compose remove -i boto3 --
+poetry compose install -i black -- flake8 --group-dev
 ```
-
-##### contains
-`-c,--contains`
-Only runs remove if sub-package contains a specific file
-
-eg: remove in every package that has `entry_point.py` file
-```bash
-poetry compose remove -c entry_point.py
-```
-
 ## update
-
-Update dependencies in every subdirectory containing a `pyproject.toml` file
+> Updates dependencies in every sub-packages
 ```bash
-poetry compose update flake8
+usage: poetry compose update [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
 ```
-
-run the same command in every sub-package with a filter
-
 ```bash
-poetry compose update -i pytest -- flake8
+usage: poetry compose update [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Updates dependencies in every sub-packages
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
 ```
-
-#### options
-
-##### ignore-missing
-`-i,--ignore-missing`
-Do not run command if a package is not installed in the sub package
-
-eg: update only if boto3 is installed
+#### Examples:
+run poetry update in every sub-package
 ```bash
-poetry compose update -i boto3 --
+poetry compose update
 ```
-
-##### contains
-`-c,--contains`
-Only runs update if sub-package contains a specific file
-
-eg: update in every package that has `entry_point.py` file
+run poetry update in the integration_test package
 ```bash
-poetry compose update -c entry_point.py
+poetry compose update -d integration_test --
+```
+## run
+> Run multiple commands in parallel
+```bash
+usage: poetry compose run [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+```
+```bash
+usage: poetry compose run [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Run multiple commands in parallel
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
+```
+#### Examples:
+run poetry run pytest in every sub-package
+```bash
+poetry compose run pytest
+```
+run pytest in every sub-package where it is installed
+```bash
+poetry compose run -i pytest -- pytest -s
+```
+## dependency-order
+> Find dependency order between packages
+```bash
+usage: poetry compose dependency-order [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+```
+```bash
+usage: poetry compose dependency-order [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Find dependency order between packages
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
+```
+#### Examples:
+get a valid dependency order of every sub package
+```bash
+poetry compose dependency-order
 ```
