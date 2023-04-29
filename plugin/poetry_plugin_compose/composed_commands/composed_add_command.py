@@ -25,7 +25,7 @@ class ComposedAddCommand(ComposedCommand):
     ]
 
     def run(self, args, package):
-        self._write_line("Running add " + join(args) + " in " + " in " + package)
+        self._write_line("Running add " + join(args) + " in " + package)
         return_code = run_sub_command_sync(["poetry", "add", *args], package)
         self.report_output(return_code)
         return return_code
