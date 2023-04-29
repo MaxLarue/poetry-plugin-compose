@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "doc"
+name = "scripts"
 version = "0.1.0"
 description = ""
 authors = ["Max <maximilienlarue@gmail.com>"]
@@ -7,8 +7,12 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-mkdocs = "1.4.2"
+poetry-plugin-compose = {path = "../plugin", develop = true}
+mako = "^1.2.4"
 
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
 
 [build-system]
 requires = ["poetry-core"]

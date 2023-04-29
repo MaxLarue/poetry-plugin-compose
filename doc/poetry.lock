@@ -47,14 +47,14 @@ dev = ["flake8", "markdown", "twine", "wheel"]
 
 [[package]]
 name = "importlib-metadata"
-version = "6.3.0"
+version = "6.6.0"
 description = "Read metadata from Python packages"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "importlib_metadata-6.3.0-py3-none-any.whl", hash = "sha256:8f8bd2af397cf33bd344d35cfe7f489219b7d14fc79a3f854b75b8417e9226b0"},
-    {file = "importlib_metadata-6.3.0.tar.gz", hash = "sha256:23c2bcae4762dfb0bbe072d358faec24957901d75b6c4ab11172c0c982532402"},
+    {file = "importlib_metadata-6.6.0-py3-none-any.whl", hash = "sha256:43dd286a2cd8995d5eaef7fee2066340423b818ed3fd70adf0bad5f1fac53fed"},
+    {file = "importlib_metadata-6.6.0.tar.gz", hash = "sha256:92501cdf9cc66ebd3e612f1b4f0c0765dfa42f0fa38ffb319b6bd84dd675d705"},
 ]
 
 [package.dependencies]
@@ -204,14 +204,14 @@ min-versions = ["babel (==2.9.0)", "click (==7.0)", "colorama (==0.4)", "ghp-imp
 
 [[package]]
 name = "packaging"
-version = "23.0"
+version = "23.1"
 description = "Core utilities for Python packages"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "packaging-23.0-py3-none-any.whl", hash = "sha256:714ac14496c3e68c99c29b00845f7a2b85f3bb6f1078fd9f72fd20f0570002b2"},
-    {file = "packaging-23.0.tar.gz", hash = "sha256:b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97"},
+    {file = "packaging-23.1-py3-none-any.whl", hash = "sha256:994793af429502c4ea2ebf6bf664629d07c1a9fe974af92966e4b8d2df7edc61"},
+    {file = "packaging-23.1.tar.gz", hash = "sha256:a392980d2b6cffa644431898be54b0045151319d1e7ec34f0cfed48767dd334f"},
 ]
 
 [[package]]
@@ -365,4 +365,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "aa0d533b7d9ee7ca445fca44bfbd8b4cbdbf361bfbe5ff2e6de0707a35b17281"
+content-hash = "12f1195cc27f739637076df0b1bdbaa0d852a95632b585e7306de601f0ddb441"

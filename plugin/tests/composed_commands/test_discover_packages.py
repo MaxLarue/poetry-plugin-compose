@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from poetry_plugin_compose.composed_commands.discover_packages import (
+from poetry_plugin_compose.packages.discover_packages import (
     discover_packages_matching,
     is_directory_containing_file,
 )

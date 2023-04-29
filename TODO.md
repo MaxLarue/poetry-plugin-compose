@@ -1,13 +1,2 @@
-- other sub-commands
-  - install
-  - add
-  - build
-  - check
-  - lock
-  - publish
-  - remove
-  - update
-  - show
-- tests
-- documentation
+- github page
 - publish
