@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "poetry-plugin-compose"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Max <maximilienlarue@gmail.com>"]
 readme = "README.md"

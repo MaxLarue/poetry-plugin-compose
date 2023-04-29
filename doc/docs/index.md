@@ -133,7 +133,7 @@ Also the root readme of the project serves as the welcome page of the docs.
 In order to sync the doc runs the following
 ```
 cd scripts
-poetry run python generate_doc.py
+poetry compose run -d scripts -- python generate_doc.py
 ```
 
 Then to deploy
