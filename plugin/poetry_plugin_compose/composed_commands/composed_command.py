@@ -78,7 +78,9 @@ class ComposedCommand:
         self.io.write_line("<comment>" + self.get_log_intro() + " success</comment>")
 
     def _write_error(self, error):
-        self.io.write_line("<error>" + self.get_log_intro() + error + " failure</error>")
+        self.io.write_line(
+            "<error>" + self.get_log_intro() + error + " failure</error>"
+        )
 
     def _write_failure(self):
         self._write_error("failure")

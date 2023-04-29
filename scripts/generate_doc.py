@@ -8,6 +8,7 @@ def generate_commands():
     from poetry_plugin_compose.composed_command_list import (
         ALL_COMPOSED_COMMAND_CLASSES,
     )
+
     command_metas = []
     for command_cls in ALL_COMPOSED_COMMAND_CLASSES:
         command_meta = {}
@@ -41,36 +42,22 @@ ${example["output"]}
 """
     ).render(command_metas=command_metas)
     with open(
-            os.path.normpath(
-                os.path.join(__file__, "..", "..", "doc", "docs", "commands.md")
-            ),
-            "w",
+        os.path.normpath(
+            os.path.join(__file__, "..", "..", "doc", "docs", "commands.md")
+        ),
+        "w",
     ) as f:
         f.write(command_file_content)
 
 
 def copy_readmes():
-    root_readme = os.path.normpath(os.path.join(
-        __file__,
-        "..",
-        "..",
-        "README.md"
-    ))
-    plugin_readme = os.path.normpath(os.path.join(
-        __file__,
-        "..",
-        "..",
-        "plugin",
-        "README.md"
-    ))
-    docs_readme = os.path.normpath(os.path.join(
-        __file__,
-        "..",
-        "..",
-        "doc",
-        "docs",
-        "index.md"
-    ))
+    root_readme = os.path.normpath(os.path.join(__file__, "..", "..", "README.md"))
+    plugin_readme = os.path.normpath(
+        os.path.join(__file__, "..", "..", "plugin", "README.md")
+    )
+    docs_readme = os.path.normpath(
+        os.path.join(__file__, "..", "..", "doc", "docs", "index.md")
+    )
     shutil.copyfile(root_readme, plugin_readme)
     shutil.copyfile(root_readme, docs_readme)
 
