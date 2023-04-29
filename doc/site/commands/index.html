@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Commands - Poetry compose</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Poetry compose</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Commands</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href=".." class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#commands" class="nav-link">Commands</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#install" class="nav-link">install</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#add" class="nav-link">add</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#build" class="nav-link">build</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#check" class="nav-link">check</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#lock" class="nav-link">lock</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#publish" class="nav-link">publish</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#remove" class="nav-link">remove</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#update" class="nav-link">update</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#run" class="nav-link">run</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#dependency-order" class="nav-link">dependency-order</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="commands">Commands</h1>
+<h2 id="install">install</h2>
+<blockquote>
+<p>Run install in multiple sub-packages</p>
+</blockquote>
+<pre><code class="language-bash">usage: poetry compose install [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+</code></pre>
+<pre><code class="language-bash">usage: poetry compose install [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Run install in multiple sub-packages
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
+</code></pre>
+<h4 id="examples">Examples:</h4>
+<p>run poetry install in every sub-package</p>
+<pre><code class="language-bash">poetry compose install
+</code></pre>
+<p>run poetry install in the integration_test package</p>
+<pre><code class="language-bash">poetry compose install -d integration_test --
+</code></pre>
+<h2 id="add">add</h2>
+<blockquote>
+<p>Add a dependency to every sub-packages</p>
+</blockquote>
+<pre><code class="language-bash">usage: poetry compose add [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+</code></pre>
+<pre><code class="language-bash">usage: poetry compose add [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Add a dependency to every sub-packages
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
+</code></pre>
+<h4 id="examples_1">Examples:</h4>
+<p>add flake8 to every sub-packages</p>
+<pre><code class="language-bash">poetry compose add flake8
+</code></pre>
+<p>add flake8 to every subpackage where black is installed</p>
+<pre><code class="language-bash">poetry compose install -i black -- flake8
+</code></pre>
+<p>add flake8 as a dev dependency to every subpackage where black is installed</p>
+<pre><code class="language-bash">poetry compose install -i black -- flake8 --group-dev
+</code></pre>
+<h2 id="build">build</h2>
+<blockquote>
+<p>Build sub packages</p>
+</blockquote>
+<pre><code class="language-bash">usage: poetry compose build [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+</code></pre>
+<pre><code class="language-bash">usage: poetry compose build [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Build sub packages
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
+</code></pre>
+<h4 id="examples_2">Examples:</h4>
+<p>run poetry build in every sub-package</p>
+<pre><code class="language-bash">poetry compose build
+</code></pre>
+<p>run poetry build in the integration_test package</p>
+<pre><code class="language-bash">poetry compose build -d integration_test --
+</code></pre>
+<h2 id="check">check</h2>
+<blockquote>
+<p>Run poetry check in sub-packages</p>
+</blockquote>
+<pre><code class="language-bash">usage: poetry compose check [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+</code></pre>
+<pre><code class="language-bash">usage: poetry compose check [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Run poetry check in sub-packages
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
+</code></pre>
+<h4 id="examples_3">Examples:</h4>
+<p>run poetry check in every sub-package</p>
+<pre><code class="language-bash">poetry compose check
+</code></pre>
+<p>run poetry check in the integration_test package</p>
+<pre><code class="language-bash">poetry compose check -d integration_test --
+</code></pre>
+<h2 id="lock">lock</h2>
+<blockquote>
+<p>Lock sub packages</p>
+</blockquote>
+<pre><code class="language-bash">usage: poetry compose lock [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+</code></pre>
+<pre><code class="language-bash">usage: poetry compose lock [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Lock sub packages
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
+</code></pre>
+<h4 id="examples_4">Examples:</h4>
+<p>run poetry lock in every sub-package</p>
+<pre><code class="language-bash">poetry compose lock
+</code></pre>
+<p>run poetry lock in the integration_test package</p>
+<pre><code class="language-bash">poetry compose lock -d integration_test --
+</code></pre>
+<h2 id="publish">publish</h2>
+<blockquote>
+<p>Publish sub packages</p>
+</blockquote>
+<pre><code class="language-bash">usage: poetry compose publish [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+</code></pre>
+<pre><code class="language-bash">usage: poetry compose publish [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Publish sub packages
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
+</code></pre>
+<h4 id="examples_5">Examples:</h4>
+<p>run poetry publish in every sub-package</p>
+<pre><code class="language-bash">poetry compose publish
+</code></pre>
+<p>run poetry publish in the integration_test package</p>
+<pre><code class="language-bash">poetry compose publish -d integration_test --
+</code></pre>
+<h2 id="remove">remove</h2>
+<blockquote>
+<p>Removes a dependency from every sub-packages</p>
+</blockquote>
+<pre><code class="language-bash">usage: poetry compose remove [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+</code></pre>
+<pre><code class="language-bash">usage: poetry compose remove [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Removes a dependency from every sub-packages
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
+</code></pre>
+<h4 id="examples_6">Examples:</h4>
+<p>remove flake8 from every sub-packages</p>
+<pre><code class="language-bash">poetry compose remove flake8
+</code></pre>
+<p>remove flake8 from every subpackage where black is installed</p>
+<pre><code class="language-bash">poetry compose install -i black -- flake8
+</code></pre>
+<p>remove flake8 as a dev dependency from every subpackage where black is installed</p>
+<pre><code class="language-bash">poetry compose install -i black -- flake8 --group-dev
+</code></pre>
+<h2 id="update">update</h2>
+<blockquote>
+<p>Updates dependencies in every sub-packages</p>
+</blockquote>
+<pre><code class="language-bash">usage: poetry compose update [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+</code></pre>
+<pre><code class="language-bash">usage: poetry compose update [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Updates dependencies in every sub-packages
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
+</code></pre>
+<h4 id="examples_7">Examples:</h4>
+<p>run poetry update in every sub-package</p>
+<pre><code class="language-bash">poetry compose update
+</code></pre>
+<p>run poetry update in the integration_test package</p>
+<pre><code class="language-bash">poetry compose update -d integration_test --
+</code></pre>
+<h2 id="run">run</h2>
+<blockquote>
+<p>Run multiple commands in parallel</p>
+</blockquote>
+<pre><code class="language-bash">usage: poetry compose run [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+</code></pre>
+<pre><code class="language-bash">usage: poetry compose run [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Run multiple commands in parallel
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
+</code></pre>
+<h4 id="examples_8">Examples:</h4>
+<p>run poetry run pytest in every sub-package</p>
+<pre><code class="language-bash">poetry compose run pytest
+</code></pre>
+<p>run pytest in every sub-package where it is installed</p>
+<pre><code class="language-bash">poetry compose run -i pytest -- pytest -s
+</code></pre>
+<h2 id="dependency-order">dependency-order</h2>
+<blockquote>
+<p>Find dependency order between packages</p>
+</blockquote>
+<pre><code class="language-bash">usage: poetry compose dependency-order [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+</code></pre>
+<pre><code class="language-bash">usage: poetry compose dependency-order [-h] [-i IGNORE_MISSING] [-c CONTAINS] [-d DIRECTORY]
+
+Find dependency order between packages
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IGNORE_MISSING, --ignore-missing IGNORE_MISSING
+                        Only run in packages that have this dependency
+  -c CONTAINS, --contains CONTAINS
+                        Only run in packages that include this file
+  -d DIRECTORY, --directory DIRECTORY
+                        Only run in selected directory
+
+</code></pre>
+<h4 id="examples_9">Examples:</h4>
+<p>get a valid dependency order of every sub package</p>
+<pre><code class="language-bash">poetry compose dependency-order
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
