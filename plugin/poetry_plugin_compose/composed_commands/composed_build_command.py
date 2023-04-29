@@ -1,5 +1,3 @@
-from typing import IO
-
 from poetry_plugin_compose.composed_commands.composed_command import ComposedCommand
 from poetry_plugin_compose.composed_commands.sub_command_runner import (
     run_sub_command_sync,
@@ -8,12 +6,20 @@ from poetry_plugin_compose.composed_commands.sub_command_runner import (
 
 class ComposedBuildCommand(ComposedCommand):
     name = "build"
-
-    def __init__(self, io: IO):
-        super().__init__(io, "Build sub packages")
+    description = "Build sub packages"
+    examples = [
+        {
+            "description": "run poetry build in every sub-package",
+            "output": "poetry compose build",
+        },
+        {
+            "description": "run poetry build in the integration_test package",
+            "output": "poetry compose build -d integration_test --",
+        },
+    ]
 
     def run(self, args, package):
         self._write_line("building " + package)
         return_code = run_sub_command_sync(["poetry", "build", *args], package)
-        self._write_line("success" if return_code == 0 else "failure")
+        self.report_output(return_code)
         return return_code

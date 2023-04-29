@@ -1,5 +1,5 @@
 import argparse
-from typing import List
+from typing import List, Dict
 
 from cleo.io.io import IO
 
@@ -7,10 +7,10 @@ from poetry_plugin_compose.composed_commands.composed_command_utils import (
     split_compose_command_and_sub_command,
 )
 from poetry_plugin_compose.packages.build_dependency_graph import build_dependency_graph
-from poetry_plugin_compose.packages.discover_packages import discover_packages
 from poetry_plugin_compose.composed_commands.package_filter import (
     PackageContainsFileFilter,
     PackageHasDependencyFilter,
+    PackageIsDirectory,
 )
 
 
@@ -19,25 +19,13 @@ class ComposedCommand:
     io: IO
     parser: argparse.ArgumentParser
     description: str
+    examples: List[Dict[str, str]] = []
 
-    def __init__(self, io: IO, description: str):
+    def __init__(self):
+        self.parser = self.get_parser()
+
+    def set_io(self, io: IO):
         self.io = io
-        self.description = description
-        self.parser = argparse.ArgumentParser(
-            prog="poetry compose " + self.name, description=description
-        )
-        self.parser.add_argument(
-            "-i",
-            "--ignore-missing",
-            action="store",
-            help="Only run in packages that have this dependency",
-        )
-        self.parser.add_argument(
-            "-c",
-            "--contains",
-            action="store",
-            help="Only run in packages that include this file",
-        )
 
     def match(self, args: List[str]):
         return args and args[0] == self.name
@@ -71,11 +59,29 @@ class ComposedCommand:
                 return False
         return True
 
+    def report_output(self, return_code):
+        if return_code > 0:
+            self._write_failure()
+        else:
+            self._write_success()
+
+    def get_log_intro(self):
+        return f"[poetry compose {self.name}] "
+
     def _write_empty(self):
         self.io.write_line("")
 
     def _write_line(self, line: str):
-        self.io.write_line("<info>[poetry compose] " + line + "</info>")
+        self.io.write_line("<info>" + self.get_log_intro() + line + "</info>")
+
+    def _write_success(self):
+        self.io.write_line("<comment>" + self.get_log_intro() + " success</comment>")
+
+    def _write_error(self, error):
+        self.io.write_line("<error>" + self.get_log_intro() + error + " failure</error>")
+
+    def _write_failure(self):
+        self._write_error("failure")
 
     def _get_package_filters(self, options):
         filters = []
@@ -83,4 +89,30 @@ class ComposedCommand:
             filters.append(PackageContainsFileFilter(options.contains))
         if options.ignore_missing:
             filters.append(PackageHasDependencyFilter(options.ignore_missing))
+        if options.directory:
+            filters.append(PackageIsDirectory(options.directory))
         return filters
+
+    def get_parser(self):
+        parser = argparse.ArgumentParser(
+            prog="poetry compose " + self.name, description=self.description
+        )
+        parser.add_argument(
+            "-i",
+            "--ignore-missing",
+            action="store",
+            help="Only run in packages that have this dependency",
+        )
+        parser.add_argument(
+            "-c",
+            "--contains",
+            action="store",
+            help="Only run in packages that include this file",
+        )
+        parser.add_argument(
+            "-d",
+            "--directory",
+            action="store",
+            help="Only run in selected directory",
+        )
+        return parser

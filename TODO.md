@@ -1,5 +1,2 @@
-- features
-  - link two packages
-  - scaffold new sub-package
-- documentation
+- github page
 - publish

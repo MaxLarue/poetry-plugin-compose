@@ -1,3 +1,4 @@
+from os import path
 from poetry_plugin_compose.packages.sub_package_contains import (
     sub_package_contains,
 )
@@ -19,6 +20,17 @@ class PackageHasDependencyFilter(PackageFilter):
         return (
             sub_package_has_dependency(package, self.dependency_name),
             f"package {package} does not have a dependency to {self.dependency_name}",
+        )
+
+
+class PackageIsDirectory(PackageFilter):
+    def __init__(self, directory):
+        self.directory = directory
+
+    def filter(self, package):
+        return (
+            path.normpath(package) == path.normpath(self.directory),
+            package + f" is not '{self.directory}'",
         )
 
 

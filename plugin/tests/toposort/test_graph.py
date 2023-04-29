@@ -151,5 +151,5 @@ def test_topo_sort_complex_graph(complex_graph):
 
 
 def test_topo_sort_circular_graph_raises(circular_graph):
-    with pytest.raises(CircularGraphException) as e:
+    with pytest.raises(CircularGraphException):
         circular_graph.toposort()
