@@ -1,6 +1,8 @@
 # Poetry compose
 
-A poetry plugin to manage multiple project from a single root, a-la monorepo
+A poetry plugin to manage multiple project from a single root, a-la monorepo.
+
+[Docs available here](https://maxlarue.github.io/poetry-plugin-compose/)
 
 # Work in progress
 This is a work in progress, you might find some bugs, some improvements and some annoyance.
@@ -127,9 +129,14 @@ Example:
 ### Documentation
 
 Documentation is mostly generated from the command themselves.
-Also the root readme of the project servers as the welcome page of the docs.
+Also the root readme of the project serves as the welcome page of the docs.
 In order to sync the doc runs the following
 ```
 cd scripts
-poetry run python generate_docs.py
+poetry run python generate_doc.py
+```
+
+Then to deploy
+```
+poetry compose run -d doc -- mkdocs gh-deploy
 ```
