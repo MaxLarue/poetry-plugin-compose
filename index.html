@@ -213,7 +213,7 @@ poetry add -e ../users
 Also the root readme of the project serves as the welcome page of the docs.
 In order to sync the doc runs the following</p>
 <pre><code>cd scripts
-poetry run python generate_doc.py
+poetry compose run -d scripts -- python generate_doc.py
 </code></pre>
 <p>Then to deploy</p>
 <pre><code>poetry compose run -d doc -- mkdocs gh-deploy
@@ -298,5 +298,5 @@ poetry run python generate_doc.py
 
 <!--
 MkDocs version : 1.4.2
-Build Date UTC : 2023-04-29 11:08:02.435849+00:00
+Build Date UTC : 2023-04-29 11:44:09.061860+00:00
 -->
