@@ -2,6 +2,12 @@
 
 set -e
 
+echo '####### lint
+poetry compose run -i flake8 -- flake8 .
+
+echo '####### format
+poetry compose run -i black -- black .
+
 echo '####### generate doc'
 poetry compose run -d scripts -- python generate_doc.py
 
