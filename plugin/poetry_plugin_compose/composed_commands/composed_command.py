@@ -12,6 +12,8 @@ from poetry_plugin_compose.composed_commands.package_filter import (
     PackageHasDependencyFilter,
     PackageIsDirectory,
 )
+from poetry_plugin_compose.packages.build_natural_order import build_natural_order
+from poetry_plugin_compose.toposort.graph import CircularGraphException
 
 
 class ComposedCommand:
@@ -40,7 +42,14 @@ class ComposedCommand:
         root_command, sub_command = self.split_args(args)
         options = self.parser.parse_args(root_command[1:])
         filters = self._get_package_filters(options)
-        package_order, package_map = build_dependency_graph()
+        try:
+            package_order, package_map = build_dependency_graph()
+        except CircularGraphException as e:
+            self._write_warning(
+                "Circular dependencies detected, falling back to natural ordering: "
+                + str(e)
+            )
+            package_order, package_map = build_natural_order()
         return_code = 0
         for package_name in package_order:
             package_dir = package_map[package_name].dir
@@ -80,6 +89,11 @@ class ComposedCommand:
     def _write_error(self, error):
         self.io.write_line(
             "<error>" + self.get_log_intro() + error + " failure</error>"
+        )
+
+    def _write_warning(self, warning):
+        self.io.write_line(
+            "<warning>" + self.get_log_intro() + warning + " failure</warning>"
         )
 
     def _write_failure(self):
